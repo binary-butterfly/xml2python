@@ -11,6 +11,7 @@ __pycache__/
 /temp
 /reports
 /src/xml2python.egg-info
+/src/xml2python/_version.py
 
 .ruff_cache/
 .mypy_cache/
