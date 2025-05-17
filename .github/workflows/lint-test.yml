@@ -8,8 +8,25 @@ on:
   workflow_call:
 
 jobs:
+  prepare:
+    runs-on: ubuntu-22.04  # Provides system Python 3.10
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup Python v3.10 with uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.10'
+          enable-cache: true
+
+      - name: install packages
+        run: uv pip install -r pyproject.toml --extra testing --system
+
+
+
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Provides system Python 3.10
 
     steps:
     - name: checkout
@@ -30,7 +47,7 @@ jobs:
       run: ruff format --check ./src ./tests
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Provides system Python 3.10
 
     steps:
 
