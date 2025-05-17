@@ -1,6 +1,6 @@
 # xml2pyton
 
-Take XML input and convert it to a dict. The output can be optimized by removing unnecessary nesting or ensuring lists 
+Takes XML input and converts it to a dict. The output can be optimized by removing unnecessary nesting or ensuring lists
 in ambiguous cases, so you can easily handle it afterwards, eg in [validataclass](https://pypi.org/project/validataclass/).
 
 ## Usage
@@ -109,7 +109,7 @@ would usually be converted to this:
 }
 ```
 
-But if `ChargePointStatusType` is given in the `remote_type_tags` list,  it will be converted to this 
+But if `ChargePointStatusType` is given in the `remote_type_tags` list,  it will be converted to this
 simpler version:
 
 ```
