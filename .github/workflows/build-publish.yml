@@ -46,7 +46,7 @@ jobs:
         uses: AButler/upload-release-assets@v3.0
         with:
           files: dist/*
-          repo-token: ${{ secrets.PYPI_API_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@v1.12.4
