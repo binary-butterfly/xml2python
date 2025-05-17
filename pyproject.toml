@@ -37,7 +37,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/binary-butterfly/xml2python"
-Repository = "git@github.com:binary-butterfly/xml2python.git"
+Repository = "https://github.com/binary-butterfly/xml2python.git"
 Issues = "https://github.com/binary-butterfly/xml2python/issues"
 Changelog = "https://github.com/binary-butterfly/xml2python/blob/main/CHANGELOG.md"
 
