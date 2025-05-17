@@ -1,0 +1,140 @@
+[project]
+name = "xml2python"
+dynamic = ["version"]
+authors = [
+    {name="Ernesto Ruge, binary butterfly GmbH", email="ernesto.ruge@binary-butterfly.de"},
+]
+maintainers = [
+    {name="Ernesto Ruge, binary butterfly GmbH", email="ernesto.ruge@binary-butterfly.de"},
+]
+description = "xml2python is a simple helper class to transform XML input to more usable python dicts."
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = [
+    "data",
+    "xml",
+    "dict",
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+]
+
+dependencies = [
+    "lxml~=5.4.0",
+]
+
+[project.optional-dependencies]
+testing = [
+    "ruff~=0.11.10",
+    "pytest~=8.3.5",
+    "pytest-cov~=6.1.1",
+]
+
+[build-system]
+requires = [
+    "hatchling~=1.27.0",
+    "uv-dynamic-versioning~=0.8.2",
+]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.uv-dynamic-versioning]
+fallback-version = "0.0.0"
+
+[tool.pytest.ini_options]
+addopts = "-ra --import-mode=importlib --cov-context=test --cov-report="
+testpaths = ["tests"]
+python_files = ["*_test.py", "*Test.py"]
+python_classes = ["*Test"]
+pythonpath = ["src"]
+
+# Fail on warnings
+filterwarnings = "error"
+
+[tool.ruff]
+lint.select = [
+    "F", # pyflakes
+    "I", # isort
+    "S", # flake8-bandit
+    "ASYNC", # flake8-async
+    "ISC", # flake8-implicit-str-concat
+    "LOG", # flake8-logging
+    "INP", # flake8-no-pep420 (missing __init__.py)
+    "PIE", # flake8-pie
+    "T20", # flake8-print
+    "Q", # flake8-quotes
+    "TID", # flake8-tidy-imports
+    "FLY", # flynt (use f-string instead of static join)
+]
+
+# Enable preview rules since a lot of basic pycodestyle rules are in preview mode for some reason
+preview = true
+
+lint.ignore = [
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
+    "ISC001", # single-line-implicit-string-concatenation - conflicts with formatter
+]
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "temp",
+]
+
+line-length = 120
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/*" = [
+    # Allow assert
+    "S101",
+    # Ignore unsafe practices like hardcoded passwords
+    "S101", "S105", "S106",
+    # Don't require __init__.py files
+    "INP",
+]
+
+"dev/*" = [
+    # Don't require __init__.py files
+    "INP",
+]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+multiline-quotes = "double"
+docstring-quotes = "double"
+
+[tool.ruff.format]
+quote-style = "single"
