@@ -187,6 +187,6 @@ With ignore_attributes=['{http://www.w3.org/2001/XMLSchema-instance}nil'], we ge
 ```
 
 
-## Licence
+## License
 
-This library is under MIT licence. Please look at `LICENCE.txt` for details.
+This library is under MIT license. Please look at `LICENSE.txt` for details.
