@@ -5,6 +5,51 @@ in ambiguous cases, so you can easily handle it afterwards, e.g. in [validatacla
 
 ## Usage
 
+### Summary
+
+`xml_string_to_dict()` takes a string with xml content and converts it to a python dictionary.
+
+Optional arguments can be provided to control specific behaviour:
+- `ensure_array_keys` to make sure specific tags are always parsed as a list, even if it has only one element.
+- `remote_type_tags` and `conditional_remote_type_tags` to make sure specific tags will (always or in specific conditions) be interpreted as type names and therefore omitted in the output.
+- `ignore_attributes` to specify which attributes should be ignored for a cleaner output.
+
+If you prefer to do the conversion from `str` to `etree.Element` yourself, 
+you can use `xml_to_dict()` instead, which takes an `etree.Element` as input, 
+and otherwise works the same as `xml_string_to_dict()` 
+(which is a wrapper around `string_to_xml_etree()` and `xml_to_dict()`).
+
+
+### Short usage example
+
+```python
+from xml2python import Xml2Python
+
+example_xml_string: str = """
+<Envelope>
+    <Body>
+        <Content>
+            <Text>some text</Text>
+        </Content>
+    </Body>
+    <resultDescription xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+</Envelope>
+"""
+
+parsed_dict: dict = Xml2Python.xml_string_to_dict(
+    example_xml_string,
+    ensure_array_keys=[('Content', 'Text')],
+    remote_type_tags=['Text'],
+    ignore_attributes=['{http://www.w3.org/2001/XMLSchema-instance}nil'],
+)
+
+# parsed_dict will look like this:
+assert parsed_dict == {'Envelope': {'Body': {'Content': ['some text']}, 'resultDescription': None}}
+```
+
+
+### Usage without parameters
+
 Without the optional arguments, this:
 
 ```xml
