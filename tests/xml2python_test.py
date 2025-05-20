@@ -8,7 +8,7 @@ from typing import List, Optional, Tuple
 import pytest
 from lxml import etree
 
-from tests.data_xml_helper import (
+from tests.test_data import (
     conditional_remote_type_tags_2a,
     conditional_remote_type_tags_3a,
     ensure_array_keys_1c,
