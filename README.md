@@ -1,7 +1,7 @@
-# xml2pyton
+# xml2python
 
 Takes XML input and converts it to a dict. The output can be optimized by removing unnecessary nesting or ensuring lists
-in ambiguous cases, so you can easily handle it afterwards, eg in [validataclass](https://pypi.org/project/validataclass/).
+in ambiguous cases, so you can easily handle it afterwards, e.g. in [validataclass](https://pypi.org/project/validataclass/).
 
 ## Usage
 
@@ -52,7 +52,7 @@ Without the optional arguments, this:
 ```
 
 
-### Parameter `ensure_array_keys`
+### Parameter: `ensure_array_keys`
 
 The `ensure_array_keys` list can be provided to specify for which keys in which tags, the values
 should always be interpreted as items of a list. In case there is only one child item, they would otherwise
@@ -86,7 +86,7 @@ the example above would be converted to this, interpreting the values of the giv
 ```
 
 
-### Parameter `remote_type_tags`
+### Parameter: `remote_type_tags`
 
 The `remote_type_tags` list can be provided to specify which tags should be interpreted as names of types,
 e.g. enums, which don't need to be preserved as keys in the output dict.
@@ -155,7 +155,10 @@ but only one of them should be skipped, for example:
 can be parsed into a non-nested field named 'resultCode' with the content 'ok'
 by giving `conditional_remote_type_tags=[('resultCode', 'resultCode')]`.
 
-The 'ignore_attributes' list can be given to avoid parsing attributes with a certain name.
+
+### Parameter: `ignore_attributes`
+
+The `ignore_attributes` list can be given to avoid parsing attributes with a certain name.
 This is useful if a tag could either have a simple string value as a child, or be self-closing -
 and the self-closing version should be interpreted as if the tag's value is null
 (because there might be attributes that say this, but in a weirdly complicated way).
@@ -180,7 +183,7 @@ And if we were to just skip the attribute by adding it to `remote_type_tags`, we
 
 Which would be very misleading. So to parse this tag into a useful value for an 'Optional[str]' type field,
 the ignore_attributes list can be used.
-With ignore_attributes=['{http://www.w3.org/2001/XMLSchema-instance}nil'], we get a result that fits the type:
+With `ignore_attributes=['{http://www.w3.org/2001/XMLSchema-instance}nil']`, we get a result that fits the type:
 
 ```
 'resultDescription': None
