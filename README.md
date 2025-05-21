@@ -1,9 +1,54 @@
-# xml2pyton
+# xml2python
 
 Takes XML input and converts it to a dict. The output can be optimized by removing unnecessary nesting or ensuring lists
-in ambiguous cases, so you can easily handle it afterwards, eg in [validataclass](https://pypi.org/project/validataclass/).
+in ambiguous cases, so you can easily handle it afterwards, e.g. in [validataclass](https://pypi.org/project/validataclass/).
 
 ## Usage
+
+### Summary
+
+`xml_string_to_dict()` takes a string with xml content and converts it to a python dictionary.
+
+Optional arguments can be provided to control specific behaviour:
+- `ensure_array_keys` to make sure specific tags are always parsed as a list, even if it has only one element.
+- `remote_type_tags` and `conditional_remote_type_tags` to make sure specific tags will (always or in specific conditions) be interpreted as type names and therefore omitted in the output.
+- `ignore_attributes` to specify which attributes should be ignored for a cleaner output.
+
+If you prefer to do the conversion from `str` to `etree.Element` yourself, 
+you can use `xml_to_dict()` instead, which takes an `etree.Element` as input, 
+and otherwise works the same as `xml_string_to_dict()` 
+(which is a wrapper around `string_to_xml_etree()` and `xml_to_dict()`).
+
+
+### Short usage example
+
+```python
+from xml2python import Xml2Python
+
+example_xml_string: str = """
+<Envelope>
+    <Body>
+        <Content>
+            <Text>some text</Text>
+        </Content>
+    </Body>
+    <resultDescription xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+</Envelope>
+"""
+
+parsed_dict: dict = Xml2Python.xml_string_to_dict(
+    example_xml_string,
+    ensure_array_keys=[('Content', 'Text')],
+    remote_type_tags=['Text'],
+    ignore_attributes=['{http://www.w3.org/2001/XMLSchema-instance}nil'],
+)
+
+# parsed_dict will look like this:
+assert parsed_dict == {'Envelope': {'Body': {'Content': ['some text']}, 'resultDescription': None}}
+```
+
+
+### Usage without parameters
 
 Without the optional arguments, this:
 
@@ -52,7 +97,7 @@ Without the optional arguments, this:
 ```
 
 
-### Parameter `ensure_array_keys`
+### Parameter: `ensure_array_keys`
 
 The `ensure_array_keys` list can be provided to specify for which keys in which tags, the values
 should always be interpreted as items of a list. In case there is only one child item, they would otherwise
@@ -86,7 +131,7 @@ the example above would be converted to this, interpreting the values of the giv
 ```
 
 
-### Parameter `remote_type_tags`
+### Parameter: `remote_type_tags`
 
 The `remote_type_tags` list can be provided to specify which tags should be interpreted as names of types,
 e.g. enums, which don't need to be preserved as keys in the output dict.
@@ -155,7 +200,10 @@ but only one of them should be skipped, for example:
 can be parsed into a non-nested field named 'resultCode' with the content 'ok'
 by giving `conditional_remote_type_tags=[('resultCode', 'resultCode')]`.
 
-The 'ignore_attributes' list can be given to avoid parsing attributes with a certain name.
+
+### Parameter: `ignore_attributes`
+
+The `ignore_attributes` list can be given to avoid parsing attributes with a certain name.
 This is useful if a tag could either have a simple string value as a child, or be self-closing -
 and the self-closing version should be interpreted as if the tag's value is null
 (because there might be attributes that say this, but in a weirdly complicated way).
@@ -180,13 +228,13 @@ And if we were to just skip the attribute by adding it to `remote_type_tags`, we
 
 Which would be very misleading. So to parse this tag into a useful value for an 'Optional[str]' type field,
 the ignore_attributes list can be used.
-With ignore_attributes=['{http://www.w3.org/2001/XMLSchema-instance}nil'], we get a result that fits the type:
+With `ignore_attributes=['{http://www.w3.org/2001/XMLSchema-instance}nil']`, we get a result that fits the type:
 
 ```
 'resultDescription': None
 ```
 
 
-## Licence
+## License
 
-This library is under MIT licence. Please look at `LICENCE.txt` for details.
+This library is under MIT license. Please look at `LICENSE.txt` for details.
