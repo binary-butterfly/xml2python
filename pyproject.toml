@@ -3,9 +3,11 @@ name = "xml2python"
 dynamic = ["version"]
 authors = [
     {name="Ernesto Ruge, binary butterfly GmbH", email="ernesto.ruge@binary-butterfly.de"},
+    {name="Kirstin Rohwer, binary butterfly GmbH", email="kirstin.rohwer@binary-butterfly.de"},
 ]
 maintainers = [
     {name="Ernesto Ruge, binary butterfly GmbH", email="ernesto.ruge@binary-butterfly.de"},
+    {name="Kirstin Rohwer, binary butterfly GmbH", email="kirstin.rohwer@binary-butterfly.de"},
 ]
 description = "xml2python is a simple helper class to transform XML input to more usable python dicts."
 readme = "README.md"
@@ -15,7 +17,7 @@ keywords = [
     "xml",
     "dict",
 ]
-license-files = ["LICENCE.txt"]
+license-files = ["LICENSE.txt"]
 
 classifiers = [
     "Development Status :: 3 - Alpha",
