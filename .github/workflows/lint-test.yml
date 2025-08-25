@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-22.04  # Provides system Python 3.10
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: setup Python v3.10 with uv
         uses: astral-sh/setup-uv@v6
@@ -30,7 +30,7 @@ jobs:
 
     steps:
     - name: checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: setup Python v3.10 with uv
       uses: astral-sh/setup-uv@v6
@@ -54,7 +54,7 @@ jobs:
     steps:
 
     - name: checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: setup Python v3.10 with uv
       uses: astral-sh/setup-uv@v6
