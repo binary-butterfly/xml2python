@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04  # Provides system Python 3.10
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # We use Python 3.10 here because it's the minimum Python version supported by this library.
       - name: setup Python v3.10 with uv
