@@ -43,7 +43,7 @@ Changelog = "https://github.com/binary-butterfly/xml2python/blob/main/CHANGELOG.
 
 [project.optional-dependencies]
 testing = [
-    "ruff~=0.11.10",
+    "ruff>=0.11.10,<0.14.0",
     "pytest~=8.3.5",
     "pytest-cov~=6.1.1",
 ]
